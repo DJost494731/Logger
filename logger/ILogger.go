@@ -12,19 +12,20 @@ type ILogger interface {
 	Log(logType string, message string)
 }
 
+//UseLogger sets the logger type.
+func UseLogger(loggerToUse ILogger) {
+	logger = loggerToUse
+	loggerType := fmt.Sprintf("%T", loggerToUse)
+	logger.Info("Logger has been changed successfully! Now using '" + loggerType + "'.")
+}
+
+
 //Logger gets an instance of the logger.
 func Logger() ILogger {
 	if logger == nil {
 		initializeDefaultLogger()
 	}
 	return logger
-}
-
-//UseLogger sets the logger type.
-func UseLogger(loggerToUse ILogger) {
-	logger = loggerToUse
-	loggerType := fmt.Sprintf("%T", loggerToUse)
-	logger.Info("Logger has been changed successfully! Now using '" + loggerType + "'.")
 }
 
 func initializeDefaultLogger() {
